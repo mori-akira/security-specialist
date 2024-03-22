@@ -1,18 +1,149 @@
 <!DOCTYPE html>
 <html dir="ltr" lang="ja">
-  <head>
-    <meta charset="utf-8" />
-    <title>情報処理安全確保支援士</title>
-    <meta name="author" content="Moriaki Kogure" />
-    <link rel="stylesheet" href="./asset/style.css" />
-    <link rel="icon" href="favicon.ico" />
-  </head>
+    <head>
+        <meta charset="utf-8" />
+        <title>情報処理安全確保支援士</title>
+        <meta name="author" content="Moriaki Kogure" />
+        <link rel="stylesheet" href="./asset/style.css" />
+        <link rel="icon" href="favicon.ico" />
+    </head>
 
-  <body>
-    <h1>情報処理安全確保支援士</h1>
+    <body>
+        <h1>情報処理安全確保支援士</h1>
 
-    <script src="./asset/dexie.min.js"></script>
-    <script src="./asset/jquery-3.7.1.slim.min.js"></script>
-    <script src="./asset/script.js"></script>
-  </body>
+        <h4>資格概要</h4>
+        <blockquote>
+            <a href="https://www.ipa.go.jp/shiken/kubun/sc.html"
+                >情報処理安全確保支援士試験</a
+            >
+        </blockquote>
+
+        <h4>参考書</h4>
+        <blockquote>
+            <a href="https://book.impress.co.jp/books/1123101058"
+                >徹底攻略 情報処理安全確保支援士教科書 令和6年度</a
+            >
+        </blockquote>
+
+        <h4>学習進捗</h4>
+        <div>
+            <span id="practice-progress"></span>
+            <button id="reset-btn">進捗リセット</button>
+        </div>
+
+        <h4>
+            <span>コンテンツ</span>
+            <div class="toggle-box-wrapper">
+                <input
+                    type="checkbox"
+                    class="toggle-box"
+                    id="toggle-show-complete-content"
+                />
+                <label
+                    for="toggle-show-complete-content"
+                    class="toggle-box-label"
+                    >学習済みコンテンツを表示</label
+                >
+            </div>
+        </h4>
+        <div id="page-tree"></div>
+
+        <h2>第1章 情報セキュリティとは</h2>
+
+        <h3>脅威/脆弱性/リスク</h3>
+        <ul>
+            <li>脅威: <m-b>インシデント</m-b>の潜在的な原因</li>
+            <li>
+                脆弱性: 脅威がつけこむことのできる、資産が持つ<m-b>弱点</m-b>
+            </li>
+            <li>
+                リスク: ある脅威が<m-b>脆弱性</m-b>を利用して損害を与える<m-b
+                    >可能性</m-b
+                >
+            </li>
+        </ul>
+
+        <h3>CWE</h3>
+        <p>
+            CWE(Common Weakness Enumeration:
+            <m-b>共通脆弱性タイプ一覧</m-b
+            >)は、脆弱性の種別を識別するための共通基準である。
+            脆弱性を<m-b>脆弱性タイプ</m-b>として分類し、階層構造で体系化している。<br />
+            次の4種類に分類される。
+        </p>
+        <ul>
+            <li><m-b>ビュー</m-b></li>
+            <li><m-b>カテゴリ</m-b></li>
+            <li><m-b>脆弱性</m-b></li>
+            <li><m-b>複合要因</m-b></li>
+        </ul>
+
+        <h2>第2章 情報セキュリティマネジメント</h2>
+        
+        <h3>情報資産の分類</h3>
+        <ul>
+            <li><m-b>物理的資産</m-b></li>
+            <li><m-b>ソフトウェア資産</m-b></li>
+            <li><m-b>人的資産</m-b></li>
+            <li><m-b>無形資産</m-b></li>
+            <li><m-b>サービス資産</m-b></li>
+            <li><m-b>直接的情報資産</m-b></li>
+        </ul>
+
+        <h3>JIS Q 27014で定義されるガバナンスプロセス</h3>
+        <ol>
+            <li><m-b>評価</m-b>: 将来の戦略的目的達成を最適化するための調整を決定する</li>
+            <li><m-b>指示</m-b>: 情報セキュリティの目的及び戦略について指示を与える</li>
+            <li><m-b>モニタ</m-b>: 経営陣が戦略的目的の達成を評価することを可能にする</li>
+            <li><m-b>コミュニケーション</m-b>: 利害関係者との間で特定のニーズに沿って情報セキュリティに関する情報を交換する</li>
+            <li><m-b>保証</m-b>: 独立した立場から客観的な監査、レビューまたは認証を委託する</li>
+        </ol>
+
+        <h3>リスクの種類</h3>
+        <ol>
+            <li><m-b>財産損失</m-b></li>
+            <li><m-b>収入減少</m-b></li>
+            <li><m-b>責任損失</m-b></li>
+            <li><m-b>人的損失</m-b></li>
+        </ol>
+
+        <h3>OECD8原則</h3>
+        <p>
+            OECD(Organization for Economic Co-operation and Development: <m-b>経済協力開発機構</m-b>)が発表したプライバシーガイドラインがある。
+        </p>
+        <ol>
+            <li><m-b>収集制限の原則</m-b>: 個人情報の収集は適法かつ公正でなければならず、本人の認識や同意が必要</li>
+            <li><m-b>データ内容の原則</m-b>: 個人情報は必要な範囲内で、正確で安全で最新でなければならない</li>
+            <li><m-b>目的明確化の原則</m-b>: 収集目的は収集時に特定されていなければならない</li>
+            <li><m-b>利用制限の原則</m-b>: 収集目的を超えて開示、提供、利用されてはならない</li>
+            <li><m-b>安全保護の原則</m-b>: 紛失、改ざんなどのリスクに対して安全対策が必要</li>
+            <li><m-b>公開の原則</m-b>: 個人情報の取り扱いについて基本方針を公開する</li>
+            <li><m-b>個人参加の原則</m-b>: 本人の求めに応じて回答しなければならない</li>
+            <li><m-b>責任の原則</m-b>: 管理者は1~7のルールに準拠する責任を持つ</li>
+        </ol>
+
+        <h3>内部統制の4つの目的</h3>
+        <ul>
+            <li><m-b>業務の有効性及び効率性</m-b></li>
+            <li><m-b>財務報告の信頼性</m-b></li>
+            <li><m-b>事業活動に関する法令等の遵守</m-b></li>
+            <li><m-b>資産の保全</m-b></li>
+        </ul>
+
+        <h3>内部統制の6つの基本要素</h3>
+        <ul>
+            <li><m-b>統制環境</m-b>: 倫理観や経営者の姿勢、経営戦略など</li>
+            <li><m-b>リスク評価と対応</m-b>: リスクの洗い出しと評価</li>
+            <li><m-b>統制活動</m-b>: 指揮、命令が適切に実行されること。<m-b>職務分掌</m-b>などの方針が含まれる</li>
+            <li><m-b>情報と伝達</m-b>: 必要な情報が認識され、関係者に正しく伝えられること</li>
+            <li><m-b>モニタリング</m-b>: 内部統制が機能していることを継続的に評価すること</li>
+            <li><m-b>ITへの対応</m-b>: 適切にITに対応すること。日本独自の追加要素</li>
+        </ul>
+
+        <h2>第3章 ネットワーク基礎技術</h2>
+
+        <script src="./asset/dexie.min.js"></script>
+        <script src="./asset/jquery-3.7.1.slim.min.js"></script>
+        <script src="./asset/script.js"></script>
+    </body>
 </html>
