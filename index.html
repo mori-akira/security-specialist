@@ -363,6 +363,215 @@
             </tbody>
         </table>
 
+        <h3>UDPヘッダのフィールド</h3>
+        <ul>
+            <li><m-b>送信元ポート番号</m-b></li>
+            <li><m-b>宛先ポート番号</m-b></li>
+            <li>
+                <m-b>パケット長</m-b>: UDPヘッダとデータの長さの合計。単位は<m-b
+                    >オクテット</m-b
+                >
+            </li>
+            <li><m-b>チェックサム</m-b>: 省略する場合の値は<m-b>0</m-b></li>
+        </ul>
+
+        <h3>SMTPリクエストの主なコマンド</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>コマンド</th>
+                    <th>説明</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><m-b>HELO</m-b></td>
+                    <td>通信開始</td>
+                </tr>
+                <tr>
+                    <td><m-b>EHLO</m-b></td>
+                    <td>通信開始(拡張版HELO)</td>
+                </tr>
+                <tr>
+                    <td><m-b>MAIL FROM:</m-b></td>
+                    <td>送信者</td>
+                </tr>
+                <tr>
+                    <td><m-b>RCPT TO:</m-b></td>
+                    <td>受信者の指定(Receipt to)</td>
+                </tr>
+                <tr>
+                    <td><m-b>DATA</m-b></td>
+                    <td>メール本文の送信</td>
+                </tr>
+                <tr>
+                    <td><m-b>QUIT</m-b></td>
+                    <td>終了</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>主なSMTPリプライ</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>リプライ</th>
+                    <th>説明</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><m-b>250</m-b></td>
+                    <td>要求された処理の完了</td>
+                </tr>
+                <tr>
+                    <td><m-b>354</m-b></td>
+                    <td>
+                        メールデータの入力開始<br />
+                        または<m-b>ピリオド</m-b>だけの行で入力終了
+                    </td>
+                </tr>
+                <tr>
+                    <td><m-b>451</m-b></td>
+                    <td>問題が発生したため処理を中断</td>
+                </tr>
+                <tr>
+                    <td><m-b>500</m-b></td>
+                    <td>文法の誤り</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>POPリクエストの主なコマンド</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>コマンド</th>
+                    <th>説明</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><m-b>USER</m-b></td>
+                    <td>ユーザ名の送信</td>
+                </tr>
+                <tr>
+                    <td><m-b>PASS</m-b></td>
+                    <td>パスワードの送信</td>
+                </tr>
+                <tr>
+                    <td><m-b>APOP</m-b></td>
+                    <td>APOPを使った認証</td>
+                </tr>
+                <tr>
+                    <td><m-b>LIST</m-b></td>
+                    <td>メール一覧取得</td>
+                </tr>
+                <tr>
+                    <td><m-b>RETR</m-b></td>
+                    <td>メールのメッセージ取得</td>
+                </tr>
+                <tr>
+                    <td><m-b>QUIT</m-b></td>
+                    <td>終了</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>主なPOPリプライ</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>リプライ</th>
+                    <th>説明</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><m-b>+OK</m-b></td>
+                    <td>正常</td>
+                </tr>
+                <tr>
+                    <td><m-b>-ERR</m-b></td>
+                    <td>エラー発生</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>DNSの主な資源レコード</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>タイプ</th>
+                    <th>説明</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><m-b>A</m-b></td>
+                    <td>ホストのIPv4アドレス</td>
+                </tr>
+                <tr>
+                    <td><m-b>NS</m-b></td>
+                    <td>ネームサーバ</td>
+                </tr>
+                <tr>
+                    <td><m-b>CNAME</m-b></td>
+                    <td>ホストの別名に対する正式名</td>
+                </tr>
+                <tr>
+                    <td><m-b>SOA</m-b></td>
+                    <td>権威の開始</td>
+                </tr>
+                <tr>
+                    <td><m-b>PTR</m-b></td>
+                    <td>IPアドレスの逆引き用ポインタ</td>
+                </tr>
+                <tr>
+                    <td><m-b>MX</m-b></td>
+                    <td>メールサーバのホスト名</td>
+                </tr>
+                <tr>
+                    <td><m-b>TXT</m-b></td>
+                    <td>テキスト文字列</td>
+                </tr>
+                <tr>
+                    <td><m-b>KEY</m-b></td>
+                    <td>セキュリティの鍵</td>
+                </tr>
+                <tr>
+                    <td><m-b>AAAA</m-b></td>
+                    <td>ホストのIPv6アドレス</td>
+                </tr>
+                <tr>
+                    <td><m-b>CAA</m-b></td>
+                    <td>認証局のコモンネーム</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>第4章 情報セキュリティ基礎技術 (暗号化、認証)</h2>
+
+        <h3>サーバ証明書の種類</h3>
+        <ol>
+            <li>
+                <m-b>DV証明書</m-b>(<m-b>Domain Validation: ドメイン認証証明書</m-b>)<br>
+                サーバの運営組織が記載のドメインの利用権を持つことを確認する証明書。
+                短期間かつ低コストで発行できるが、組織の実在性などは確認できない。
+            </li>
+            <li>
+                <m-b>OV証明書</m-b>(<m-b>Organization Validation: 企業認証証明書</m-b>)<br>
+                ドメイン名に加えて、サーバの運営組織の実在性を確認できる証明書。
+                DB証明書より信頼性は高いが、現在のWebブラウザの表示方法ではDV証明書とOV証明書の違いをブラウザ上で識別できない課題がある。
+            </li>
+            <li>
+                <m-b>EV証明書</m-b>(<m-b>Extended Validation証明書</m-b>)<br>
+                サーバの運営組織の実在性について、国際的な認定基準に基づく審査が行われて、発行される証明書。
+                最も信頼性が高く、発行コストも高くなる。
+                Webブラウザのアドレス部分が緑色になり、アドレスバーに運営祖🅂気が表示される。
+            </li>
+        </ol>
+
         <script src="./asset/dexie.min.js"></script>
         <script src="./asset/jquery-3.7.1.slim.min.js"></script>
         <script src="./asset/script.js"></script>
