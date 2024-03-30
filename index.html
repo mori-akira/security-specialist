@@ -555,25 +555,543 @@
         <h3>サーバ証明書の種類</h3>
         <ol>
             <li>
-                <m-b>DV証明書</m-b>(<m-b>Domain Validation: ドメイン認証証明書</m-b>)<br>
+                <m-b>DV証明書</m-b>(<m-b
+                    >Domain Validation: ドメイン認証証明書</m-b
+                >)<br />
                 サーバの運営組織が記載のドメインの利用権を持つことを確認する証明書。
                 短期間かつ低コストで発行できるが、組織の実在性などは確認できない。
             </li>
             <li>
-                <m-b>OV証明書</m-b>(<m-b>Organization Validation: 企業認証証明書</m-b>)<br>
+                <m-b>OV証明書</m-b>(<m-b
+                    >Organization Validation: 企業認証証明書</m-b
+                >)<br />
                 ドメイン名に加えて、サーバの運営組織の実在性を確認できる証明書。
                 DB証明書より信頼性は高いが、現在のWebブラウザの表示方法ではDV証明書とOV証明書の違いをブラウザ上で識別できない課題がある。
             </li>
             <li>
-                <m-b>EV証明書</m-b>(<m-b>Extended Validation証明書</m-b>)<br>
+                <m-b>EV証明書</m-b>(<m-b>Extended Validation証明書</m-b>)<br />
                 サーバの運営組織の実在性について、国際的な認定基準に基づく審査が行われて、発行される証明書。
                 最も信頼性が高く、発行コストも高くなる。
-                Webブラウザのアドレス部分が緑色になり、アドレスバーに運営祖🅂気が表示される。
+                Webブラウザのアドレス部分が緑色になり、アドレスバーに運営組織が表示される。
+            </li>
+        </ol>
+
+        <h3>SAML 2.0によるSSOのメッセージフロー</h3>
+        <pre class="mermaid">
+            sequenceDiagram
+                participant A as ブラウザ
+                participant B as SP
+                participant C as IdP
+
+                A->>B: (1)
+                B->>A: (2)
+                A->>C: (3)
+                C->>A: (4)
+                A->>C: (5)
+                C->>A: (6)
+                A->>B: (7)
+                B->>A: (8)
+        </pre>
+        <ul>
+            <li>(1): サービスにアクセス要求</li>
+            <li>(2): <m-b>認証要求</m-b>メッセージ</li>
+            <li>
+                (3):
+                <m-b>認証要求</m-b>メッセージを<m-b>ブラウザ</m-b>経由で送信
+            </li>
+            <li>(4): サインインしていなければ<m-b>利用者認証</m-b></li>
+            <li>(5): <m-b>利用者認証</m-b>の応答</li>
+            <li>
+                (6):
+                <m-b>認証応答</m-b
+                >メッセージを<m-b>ブラウザ</m-b>経由でSPに送信するよう指示
+            </li>
+            <li>(7): <m-b>認証応答</m-b>メッセージ</li>
+            <li>(8): サービス提供</li>
+        </ul>
+        <p>
+            SP: <m-b>Service Provider</m-b><br />
+            IdP: <m-b>Identity Provider</m-b>
+        </p>
+
+        <h3>Oauth 2.0の認可コードフロー</h3>
+        <pre class="mermaid">
+            sequenceDiagram
+                participant A as ブラウザ
+                participant B as アクセス主体
+                participant C as 認可サーバ
+                participant D as リソースサーバ
+
+                A->>B: (1)
+                B->>A: (2)
+                A->>C: (3)
+                C->>A: (4)
+                A->>C: (5)
+                C->>A: (6)
+                A->>B: (7)
+                B->>C: (8)
+                C->>B: (9)
+                B->>D: (10)
+                D->>B: (11)
+        </pre>
+        <ul>
+            <li>(1): 利用開始</li>
+            <li>(2): <m-b>認可</m-b>の要求</li>
+            <li>(3): <m-b>認可</m-b>の要求をブラウザ経由で送信</li>
+            <li>(4): <m-b>認証</m-b>、<m-b>権限付与</m-b>の確認</li>
+            <li>(5): <m-b>認証</m-b>、<m-b>権限付与</m-b>の確認</li>
+            <li>(6): <m-b>認可コード</m-b></li>
+            <li>(7): <m-b>認可コード</m-b></li>
+            <li>(8): <m-b>認可コード</m-b>で<m-b>アクセストークン</m-b>要求</li>
+            <li>(9): <m-b>アクセストークン</m-b></li>
+            <li>(10): <m-b>アクセストークン</m-b>でサービスリクエスト</li>
+            <li>(11): サービス提供</li>
+        </ul>
+
+        <h3>OAuth 2.0のImplicitフロー</h3>
+        <pre class="mermaid">
+            sequenceDiagram
+                participant A as ブラウザ
+                participant B as アクセス主体
+                participant C as 認可サーバ
+                participant D as リソースサーバ
+
+                A->>B: (1)
+                B->>A: (2)
+                A->>C: (3)
+                C->>A: (4)
+                A->>C: (5)
+                C->>B: (6)
+                B->>D: (7)
+                D->>B: (8)
+        </pre>
+        <ul>
+            <li>(1): 利用開始</li>
+            <li>(2): <m-b>認可</m-b>の要求</li>
+            <li>(3): <m-b>認可</m-b>の要求をブラウザ経由で送信</li>
+            <li>(4): <m-b>認証</m-b>、<m-b>権限付与</m-b>の確認</li>
+            <li>(5): <m-b>認証</m-b>、<m-b>権限付与</m-b>の確認</li>
+            <li>(6): <m-b>アクセストークン</m-b></li>
+            <li>(7): <m-b>アクセストークン</m-b>でサービスリクエスト</li>
+            <li>(8): サービス提供</li>
+        </ul>
+
+        <h2>第6章 情報セキュリティ実践技術</h2>
+
+        <h3>TLS通信の流れ</h3>
+        <pre class="mermaid">
+            sequenceDiagram
+                participant A as クライアント
+                participant B as サーバ
+
+                B->>A: (1)
+                A->>B: (2)
+                B->>A: (3)
+                B->>A: (4)*
+                B->>A: (5)*
+                B->>A: (6)*
+                B->>A: (7)
+                A->>B: (8)*
+                A->>B: (9)
+                A->>B: (10)*
+                A->>B: (11)
+                B->>A: (12)
+        </pre>
+        <ul>
+            <li>(1): <m-b>Hello Request</m-b></li>
+            <li>(2): <m-b>Client Hello</m-b></li>
+            <li>(3): <m-b>Server Hello</m-b></li>
+            <li>(4): <m-b>Server Certificate (+証明書のデータ)</m-b></li>
+            <li>(5): <m-b>Server Key Exchange</m-b></li>
+            <li>(6): <m-b>Certificate Request</m-b></li>
+            <li>(7): <m-b>Server Hello Done</m-b></li>
+            <li>(8): <m-b>Client Certificate (+証明書のデータ)</m-b></li>
+            <li>(9): <m-b>Client Key Exchange</m-b></li>
+            <li>(10): <m-b>Certificate Verify</m-b></li>
+            <li>(11): <m-b>Finished</m-b></li>
+            <li>(12): <m-b>Finished</m-b></li>
+        </ul>
+
+        <h3>IPSecについて</h3>
+        <h4>IKE SAを構築する方法</h4>
+        <ol>
+            <li>
+                <m-b>メインモード</m-b><br />
+                基本的なモードで実装は必須。通信相手の認証は<m-b>IPアドレス</m-b>を基に行うため、
+                <m-b>イニシエータ</m-b>、<m-b>レスポンダ</m-b>の両方で固定する。
+            </li>
+            <li>
+                <m-b>アグレッシブモード</m-b><br />
+                1.に比べて処理が簡略化されているモード。<m-b>イニシエータ</m-b>の<m-b>IPアドレス</m-b>は固定化されている必要はない。
+            </li>
+        </ol>
+        <h4>IPSecの通信モード</h4>
+        <ol>
+            <li>
+                <m-b>トランスポートモード</m-b><br />
+                IPヘッダが付け加えられず、オリジナルのIPヘッダとペイロードの間にセキュリティプロトコル(<m-b>ESP</m-b>や<m-b>AH</m-b>)が入る。
+            </li>
+            <li>
+                <m-b>トンネルモード</m-b><br />
+                新しいIPヘッダが加えられる。IPSecゲートウェイでLAN内のIPアドレスを隠ぺいする場合などに用いられる。
+            </li>
+        </ol>
+
+        <h3>IPSec関連のプロトコル</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>IPSecプロトコル</th>
+                    <th>役割</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><m-b>AH</m-b></td>
+                    <td>
+                        <ul>
+                            <li>
+                                パケットが改ざんされていないことの認証(<m-b>HMAC</m-b>)
+                            </li>
+                            <li>パケットの暗号化は行わない</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><m-b>ESP</m-b></td>
+                    <td>
+                        <ul>
+                            <li>
+                                パケットが改ざんされていないことの認証(<m-b>HMAC</m-b>)
+                            </li>
+                            <li>
+                                パケットのペイロード部の暗号化(DES or 3DES or
+                                AES)
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><m-b>IKE</m-b></td>
+                    <td>
+                        <ul>
+                            <li>秘密鍵情報の交換を安全に行う</li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>第7章 サイバー攻撃</h2>
+
+        <h3>入口対策</h3>
+        <ol>
+            <li><m-b>ファイアウォール</m-b>でのアクセス制御</li>
+            <li><m-b>マルウェア対策ソフト</m-b>の導入</li>
+            <li>悪質な<m-b>Webサイト</m-b>のフィルタリング</li>
+            <li>
+                <m-b>セキュリティパッチ</m-b>の適用など、<m-b>脆弱性</m-b>対策
+            </li>
+            <li>不正なアクセスに対する<m-b>アクセスログ</m-b>の分析</li>
+        </ol>
+
+        <h3>出口対策</h3>
+        <ol>
+            <li>ファイアウォールの<m-b>外部通信遮断</m-b>ルールの設定</li>
+            <li>ファイアウォールの<m-b>遮断ログ</m-b>の監視</li>
+            <li>ブラウザの通信を観測し、不審なhttpアクセスを検知</li>
+            <li>
+                <m-b>プロキシサーバ</m-b
+                >の<m-b>CONNECT</m-b>メソッドの設定変更による<m-b>バックドア</m-b>通信の検知
+            </li>
+            <li>最重要システムのインターネット接続との分離</li>
+            <li>最重要攻撃目標サーバの防護</li>
+            <li><m-b>VLAN</m-b>などを利用したネットワークの分離</li>
+            <li>
+                <m-b>ネットワーク負荷</m-b
+                >の監視などによる<m-b>マルウェア感染動作</m-b>検知
+            </li>
+        </ol>
+
+        <h2>第8章 マルウェア対策</h2>
+
+        <h3>コンピュータウイルスの3大機能</h3>
+        <ul>
+            <li><m-b>自己伝染機能</m-b></li>
+            <li><m-b>潜伏機能</m-b></li>
+            <li><m-b>発病機能</m-b></li>
+        </ul>
+
+        <h3>コンピュータウイルスが活用するLinuxコマンド</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>コマンド</th>
+                    <th>説明</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><m-b>curl</m-b></td>
+                    <td>URLを指定し通信を行う</td>
+                </tr>
+                <tr>
+                    <td><m-b>iptables</m-b></td>
+                    <td>
+                        ポート番号やIPアドレスなどの、ファイアウォールの設定
+                    </td>
+                </tr>
+                <tr>
+                    <td><m-b>ifconfig</m-b></td>
+                    <td>PCのIPアドレスとMACアドレスの取得</td>
+                </tr>
+                <tr>
+                    <td><m-b>top</m-b></td>
+                    <td>稼働しているプロセスの調査</td>
+                </tr>
+                <tr>
+                    <td><m-b>su</m-b>、<m-b>sudo</m-b></td>
+                    <td>管理者権限の使用</td>
+                </tr>
+                <tr>
+                    <td><m-b>tar</m-b></td>
+                    <td>ファイルの圧縮/展開</td>
+                </tr>
+                <tr>
+                    <td><m-b>cat</m-b></td>
+                    <td>ファイル内容を表示</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>コンピュータウイルスが活用するWindowsコマンド</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>コマンド</th>
+                    <th>説明</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><m-b>ipconfig</m-b></td>
+                    <td>IPアドレスやMACアドレスを取得する</td>
+                </tr>
+                <tr>
+                    <td><m-b>systeminfo</m-b></td>
+                    <td>
+                        OSのバージョンや脆弱性プログラムの適用状況を確認する
+                    </td>
+                </tr>
+                <tr>
+                    <td><m-b>tasklist</m-b></td>
+                    <td>稼働しているタスクを取得する</td>
+                </tr>
+                <tr>
+                    <td><m-b>net view</m-b></td>
+                    <td>当該ホストから接続可能な端末を確認する</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>マルウェア対策の基本</h3>
+        <ol>
+            <li><m-b>マルウェア対策ソフト</m-b>の導入</li>
+            <li><m-b>マルウェア定義ファイル</m-b>の更新</li>
+            <li><m-b>ソフトウェア脆弱性</m-b>の修正</li>
+        </ol>
+
+        <h3>マルウェア感染後の対策</h3>
+        <ol>
+            <li><m-b>ネットワーク</m-b>から切り離す</li>
+            <li>
+                <m-b>マルウェア</m-b
+                >を駆除し、<m-b>変更されたシステム</m-b>を修復する
+            </li>
+            <li>PCを<m-b>初期化</m-b>または<m-b>復元</m-b>する</li>
+            <li>
+                <m-b>マルウェア対策ソフト</m-b
+                >を最新化し、<m-b>マルウェア探索</m-b>を行う
+            </li>
+            <li>問題の根本原因を探り、セキュリティ対策を改善する</li>
+        </ol>
+
+        <h2>第9章 システム開発とセキュアプログラミング</h2>
+
+        <h3>SLCPの7プロセス</h3>
+        <ol>
+            <li><m-b>合意プロセス</m-b></li>
+            <li><m-b>組織のプロジェクトイネーブリングプロセス</m-b></li>
+            <li><m-b>プロジェクトプロセス</m-b></li>
+            <li><m-b>テクニカルプロセス</m-b></li>
+            <li><m-b>ソフトウェア実装プロセス</m-b></li>
+            <li><m-b>ソフトウェア支援プロセス</m-b></li>
+            <li><m-b>ソフトウェア再利用プロセス</m-b></li>
+        </ol>
+
+        <h3>CMMIの5段階</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>レベル</th>
+                    <th>段階</th>
+                    <th>説明</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>レベル1</td>
+                    <td><m-b>初期</m-b></td>
+                    <td>
+                        場当たり的で秩序がない状態。成功は担当者の力量に依存する。
+                    </td>
+                </tr>
+                <tr>
+                    <td>レベル2</td>
+                    <td><m-b>管理された</m-b></td>
+                    <td>基本的なぷろじぇk津尾管理が確実に行われる状態。</td>
+                </tr>
+                <tr>
+                    <td>レベル3</td>
+                    <td><m-b>定義された</m-b></td>
+                    <td>標準の開発プロセスがあり、利用されている状態。</td>
+                </tr>
+                <tr>
+                    <td>レベル4</td>
+                    <td><m-b>定量的に管理された</m-b></td>
+                    <td>
+                        品質と実績のデータを持ち、プロセスの実情を定量的に把握している状態。
+                    </td>
+                </tr>
+                <tr>
+                    <td>レベル5</td>
+                    <td><m-b>最適化している</m-b></td>
+                    <td>
+                        プロセスの状態を継続的に改善するための仕組みが備わっている状態。
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>保守の種類</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>種類</th>
+                    <th>説明</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><m-b>是正保守</m-b></td>
+                    <td>バグ修正</td>
+                </tr>
+                <tr>
+                    <td><m-b>日常点検</m-b></td>
+                    <td>日々のチェック</td>
+                </tr>
+                <tr>
+                    <td><m-b>定期保守</m-b></td>
+                    <td>定期的な点検等</td>
+                </tr>
+                <tr>
+                    <td><m-b>予防保守</m-b></td>
+                    <td>障害や不具合が起こる前に行う対策</td>
+                </tr>
+                <tr>
+                    <td><m-b>事後保守</m-b></td>
+                    <td>障害や不具合が起こった後に行う対策</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>JIS X 25010の製品品質モデル</h3>
+        <ul>
+            <li>
+                <m-b>機能適合性</m-b>: ニーズを満足させる機能を提供する度合い
+            </li>
+            <li><m-b>性能効率性</m-b>: 資源量に関係する性能の度合い</li>
+            <li>
+                <m-b>互換性</m-b>: 他の製品やシステムなどと情報交換できる度合い
+            </li>
+            <li>
+                <m-b>使用性</m-b>:
+                明示された利用状況で目標を達成できるために利用できる度合い
+            </li>
+            <li><m-b>信頼性</m-b>: 機能が正常動作し続ける度合い</li>
+            <li><m-b>セキュリティ</m-b>: システムやデータを保護する度合い</li>
+            <li><m-b>保守性</m-b>: 保守作業に必要な努力の度合い</li>
+            <li><m-b>移植性</m-b>: 別環境へ移してもそのまま動作する度合い</li>
+        </ul>
+
+        <h3>JIS X 25010の利用時の品質モデル</h3>
+        <ul>
+            <li>
+                <m-b>有効性</m-b>:
+                目標を達成するうえでの正確さ及び完全さの度合い
+            </li>
+            <li>
+                <m-b>効率性</m-b>:
+                目標を達成するための正確さ及び完全さの度合いに関連して、使用した資源の度合い
+            </li>
+            <li>
+                <m-b>満足性</m-b>:
+                製品またはシステムが明示された利用状況において使用されるとき、利用者ニーズが満足される度合い
+            </li>
+            <li>
+                <m-b>リスク回避性</m-b>:
+                経済状況、人間の生活または環境に対する潜在的なリスクを緩和する度合い
+            </li>
+            <li>
+                <m-b>利用状況網羅性</m-b>:
+                有効性、効率性、リスク回避性及び満足性を伴って製品またはシステムが使用できる度合い
+            </li>
+        </ul>
+
+        <h3>Saltzer & Schroederの8原則</h3>
+        <ol>
+            <li>
+                <m-b>効率的なメカニズム</m-b><br />
+                単純で小さな設計を心がける。
+            </li>
+            <li>
+                <m-b>フェイルセーフなデフォルト</m-b><br />
+                必要ないものを排除するのではなく、必要なものを許す判断を基本とする。
+            </li>
+            <li>
+                <m-b>完全な仲介</m-b><br />
+                あらゆるオブジェクトに対するすべての処理に関与する。
+            </li>
+            <li>
+                <m-b>オープンな設計</m-b><br />
+                設計内容を秘密にしていることに頼らない。
+            </li>
+            <li>
+                <m-b>権限の分離</m-b><br />
+                複数の鍵を使って保護する。
+            </li>
+            <li>
+                <m-b>最小限の権限</m-b><br />
+                業務を行うための最小の権限を組み合わせて捜査を行う。
+            </li>
+            <li>
+                <m-b>共通メカニズムの最小化</m-b><br />
+                複数のユーザが共有し依存する仕組みの規模を最小限に押さえる。
+            </li>
+            <li>
+                <m-b>心理学的受容性</m-b><br />
+                ユーザが日常的に無意識のうちに保護の仕組みを正しく利用できるように、使いやすさを優先した設計が重要である。
             </li>
         </ol>
 
         <script src="./asset/dexie.min.js"></script>
         <script src="./asset/jquery-3.7.1.slim.min.js"></script>
         <script src="./asset/script.js"></script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.9.0/mermaid.min.js"
+            integrity="sha512-gx05X612uoaolzJ5Ee/786b3th+qzAm90TOvRwZJwnE8yr0sHQG8eLxdR0/Hbqc2IFh2mWHzzXk79g3atNSwsQ=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        ></script>
     </body>
 </html>

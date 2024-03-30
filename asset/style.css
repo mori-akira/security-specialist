@@ -127,7 +127,7 @@ blockquote {
     border-left: 4px solid #bbb;
 }
 
-pre {
+pre:not(.mermaid) {
     padding: 0 1rem;
     background-color: #EEEEEE;
     border-left: 4px solid #333;
